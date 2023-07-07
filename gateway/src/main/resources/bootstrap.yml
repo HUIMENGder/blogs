@@ -1,0 +1,36 @@
+server:
+  port: 8080
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        # 管理员登录服务
+        - id: admin-session
+          uri: lb://admin-session
+          predicates:
+            - Path=/api/management/system/**
+        # 用户登录服务
+        - id: user-auth
+          uri: lb://user-auth
+          predicates:
+              - Path=/api/user-auth/**
+        # 内容管理服务
+        - id: content-management
+          uri: lb://content-management
+          predicates:
+              - Path=/api/content-management/**
+    config:
+      name: datasource
+      profile: dev
+      discovery:
+          enabled: true
+          service-id: config-center
+
+eureka:
+  client:
+    service-url:
+        defaultZone: http://127.0.0.1:10100/eureka/

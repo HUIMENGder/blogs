@@ -1,0 +1,82 @@
+// 学科门类
+Enum subject_category {
+    PHILOSOPHY [note: '哲学']
+    ECONOMICS [note: '经济学']
+    LAW [note: '法学']
+    EDUCATION [note: '教育学']
+    LITERATURE [note: '文学']
+    HISTORY [note: '历史学']
+    SCIENCE [note: '理学']
+    ENGINEERING [note: '工学']
+    AGRICULTURE [note: '农学']
+    MEDICINE [note: '医学']
+    MANAGEMENT [note: '管理学']
+    ART [note: '艺术学']
+    CROSS [note: '交叉学科']
+    PE [note: '体育学']
+}
+
+Table exam_question_set {
+    id int [pk, increment, note: 'ID']
+    question_set_id varchar(32) [not null, unique, note: '题集ID']
+    name varchar(255) [not null, note: '题集名称']
+    file_id varchar(16) [not null, note: '文件ID']
+    file_name varchar(255) [not null, note: '文件名称']
+    question_year int [not null, note: '年份']
+    college_name varchar(255) [not null, note: '学校名称']
+    major_name varchar(255) [not null, note: '专业名称']
+    subject_name varchar(255) [not null, note: '科目名称']
+    national_score_line int [not null, note: '国家线']
+    college_score_line int [not null, note: '院校线']
+    subject_category subject_category [not null, note: '学科门类']
+    reference_url varchar(2048) [note: '参考链接']
+    create_time datetime [not null, note: '创建时间']
+    note: '真题题集表'
+    Indexes {
+        question_set_id
+        question_year
+        college_name
+        subject_name
+    }
+}
+
+Table discussion {
+    id int [pk, increment, note: 'ID']
+    discussion_id varchar(32) [not null, unique, note: '帖子ID']
+    title varchar(255) [not null, note: '标题']
+    content text [not null, note: '内容']
+    author_id varchar(32) [not null, note: '作者ID']
+    author_name varchar(255) [not null, note: '作者名称']
+    visit_count int [not null, note: '访问量']
+    good_count int [not null, note: '点赞量']
+    tags varchar(255) [note: '标签']
+    reply_to varchar(32) [note: '回复的帖子ID或租房ID，若为null则为主贴']
+    create_time datetime [not null, note: '创建时间']
+    note: '帖子表'
+    Indexes {
+        discussion_id
+        author_id
+        reply_to
+    }
+}
+
+Table rent_house {
+    id int [pk, increment, note: 'ID']
+    house_id varchar(32) [not null, unique, note: '房屋ID']
+    title varchar(255) [not null, note: '标题']
+    content text [not null, note: '内容']
+    location varchar(255) [not null, note: '位置']
+    price int [not null, note: '价格']
+    photos_id varchar(255) [not null, note: '图片ID']
+    author_id varchar(32) [not null, note: '作者ID']
+    author_name varchar(255) [not null, note: '作者名称']
+    visit_count int [not null, note: '访问量']
+    good_count int [not null, note: '点赞量']
+    tags varchar(255) [note: '标签']
+    create_time datetime [not null, note: '创建时间']
+    note: '租房房屋信息'
+    Indexes {
+        house_id
+        author_id
+    }
+}

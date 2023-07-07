@@ -1,0 +1,18 @@
+Enum gender_type {
+    MALE
+    FEMALE
+}
+
+Table user_info {
+    id int [pk, increment, note: 'ID']
+    user_id varchar(32) [not null, unique, note: '用户ID']
+    gender gender_type [not null, note: '性别']
+    birthday_year int [not null, note: '生日年份']
+    target_college varchar(128) [not null, note: '目标院校']
+    target_major varchar(128) [not null, note: '目标专业']
+    create_time datetime [not null, note: '创建时间']
+    note: '用户信息表'
+    Indexes {
+        user_id
+    }
+}
